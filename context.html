@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cinematic Journey</title>
+    <style>
+        :root {
+            --accent: #60a5fa;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: white;
+            background: radial-gradient(circle at top, #1e293b, #0f172a, #020617);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        /* Stardust Background Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Compact Header */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .countdown {
+            font-size: 2.2rem;
+            font-weight: 200;
+            color: var(--accent);
+            text-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
+            margin: 10px 0;
+        }
+
+        .phase-tag {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            opacity: 0.5;
+            text-transform: uppercase;
+        }
+
+        /* Vertical Timeline - Compact Mode */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 14px;
+            top: 5px;
+            width: 2px;
+            height: calc(100% - 10px);
+            background: linear-gradient(to bottom, var(--accent), rgba(255,255,255,0.1));
+            border-radius: 2px;
+        }
+
+        .event {
+            position: relative;
+            margin-bottom: 25px; /* Reduced margin for single-page feel */
+        }
+
+        .dot {
+            position: absolute;
+            left: -32px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #475569;
+            border: 2px solid #0f172a;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+
+        /* Colored dots for key milestones */
+        .event.past .dot { background: #22c55e; box-shadow: 0 0 12px #22c55e; }
+        .event.active .dot { background: #3b82f6; box-shadow: 0 0 12px #3b82f6; }
+
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 18px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .date {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .content {
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        /* Bottom Sections */
+        .footer-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: var(--glass);
+            border-radius: 15px;
+            border: 1px solid var(--border);
+        }
+
+        .footer-section h3 {
+            font-size: 0.9rem;
+            margin: 0 0 12px 0;
+            font-weight: 400;
+            color: var(--accent);
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+            width: 45%; /* Manual progress adjustment */
+        }
+
+        .sub-text {
+            font-size: 0.75rem;
+            opacity: 0.5;
+            margin-top: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <header>
+        <div style="font-size: 1.5rem;">🌙</div>
+        <div id="days-timer" class="countdown">Calculating...</div>
+        <div style="font-size: 1.2rem;">💍</div>
+        <div class="phase-tag">Calm Before Emotion 🌅</div>
+    </header>
+
+    <div class="timeline">
+        <div class="event past">
+            <div class="dot"></div>
+            <div class="card">
+                <div class="date">January 1, 2026</div>
+                <div class="content">New Year — A Beginning ✨</div>
+            </div>
+        </div>
+
+        <div class="event past">
+            <div class="dot"></div>
+            <div class="card">
+                <div class="date">March 4, 2026</div>
+                <div class="content">Today — Present Moment 🌅</div>
+            </div>
+        </div>
+
+        <div class="event active">
+            <div class="dot"></div>
+            <div class="card">
+                <div class="date">April 10, 2026</div>
+                <div class="content">Walk With Her 💫</div>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="dot"></div>
+            <div class="card">
+                <div class="date">May 1, 2026</div>
+                <div class="content">Take Her To My Home 🏡</div>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="dot"></div>
+            <div class="card">
+                <div class="date">May 5, 2026</div>
+                <div class="content">Act Normal — Healing Starts 💔</div>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="dot"></div>
+            <div class="card">
+                <div class="date">May 13, 2026</div>
+                <div class="content">Haldi Ceremony 🌼</div>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="dot"></div>
+            <div class="card">
+                <div class="date">May 14, 2026</div>
+                <div class="content">Wedding Day 💍</div>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="dot"></div>
+            <div class="card">
+                <div class="date">May 15, 2026</div>
+                <div class="content">Emotional Aftermath 🌧️</div>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="dot"></div>
+            <div class="card">
+                <div class="date">May 29, 2026</div>
+                <div class="content">15 Days Healing Complete 🧠</div>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="dot"></div>
+            <div class="card">
+                <div class="date">June 1, 2026</div>
+                <div class="content">Focus & Growth Phase 🚀</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-section">
+        <h3>Healing Progress</h3>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <span class="sub-text">In pursuit of mental clarity and emotional strength.</span>
+    </div>
+
+    <div class="footer-section">
+        <h3>Work & Focus 🚀</h3>
+        <span class="sub-text">Bipivot Dashboard development & AWS infrastructure scaling.</span>
+    </div>
+</div>
+
+<script>
+    function updateCountdown() {
+        const target = new Date('May 14, 2026 00:00:00').getTime();
+        const now = new Date().getTime();
+        const diff = target - now;
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const display = document.getElementById('days-timer');
+        
+        if (d > 0) {
+            display.innerText = d + " Days Until May 14";
+        } else if (d === 0) {
+            display.innerText = "Wedding Day 💍";
+        } else {
+            display.innerText = Math.abs(d) + " Days Passed";
+        }
+    }
+    updateCountdown();
+</script>
+
+</body>
+</html>
